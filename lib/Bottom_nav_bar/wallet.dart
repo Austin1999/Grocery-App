@@ -1,12 +1,11 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-class Wallet extends StatefulWidget {
+class WalletPage extends StatefulWidget {
   @override
-  _WalletState createState() => _WalletState();
+  _WalletPageState createState() => _WalletPageState();
 }
 
-class _WalletState extends State<Wallet> {
+class _WalletPageState extends State<WalletPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -16,17 +15,6 @@ class _WalletState extends State<Wallet> {
           elevation: 0.0,
           leading: Icon(Icons.account_balance_wallet),
           title: Text('Add Money to wallet'),
-        ),
-        bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Color(0xFF7653A3),
-          items: <Widget>[
-            Icon(Icons.add, size: 30),
-            Icon(Icons.account_balance_wallet, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
-          ],
-          onTap: (index) {
-            //Handle button tap
-          },
         ),
         body: SingleChildScrollView(
           child: Container(

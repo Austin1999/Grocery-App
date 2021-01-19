@@ -1,93 +1,50 @@
-// import 'package:flutter/material.dart';
-// import 'package:fthdaily/account.dart';
-// import 'package:fthdaily/cart.dart';
-// import 'package:fthdaily/completeprofile.dart';
-// import 'package:fthdaily/coupons.dart';
-// import 'package:fthdaily/Bottom_nav_bar/store.dart';
-// import 'package:fthdaily/location/location.dart';
-// import 'package:fthdaily/location/locationenter.dart';
-// import 'package:fthdaily/rateus.dart';
-// import 'package:fthdaily/Bottom_nav_bar/wallet.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primaryColor: Color(0xFF7653A3),
-//         accentColor: Color(0xFF7653A3),
-//         iconTheme:
-//             Theme.of(context).iconTheme.copyWith(color: Color(0xFF9B63DC)),
-//         textTheme:
-//             Theme.of(context).textTheme.apply(bodyColor: Color(0xFF707070)),
-//         visualDensity: VisualDensity.adaptivePlatformDensity,
-//       ),
-//       home: HomePage(),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
-import 'package:fthdaily/About_Us/About_us.dart';
-import 'package:fthdaily/Icons/Icons.dart';
-import 'package:fthdaily/Bottom_nav_bar/Account.dart';
-import 'package:fthdaily/Bottom_nav_bar/delivery_status.dart';
-import 'package:fthdaily/Bottom_nav_bar/plans.dart';
-import 'package:fthdaily/Bottom_nav_bar/store.dart';
 import 'package:fthdaily/Bottom_nav_bar/wallet.dart';
-import 'package:fthdaily/Offers/Offers.dart';
-import 'package:fthdaily/Offers/offers_mainscreen.dart';
-import 'package:fthdaily/Support/chat_bot.dart';
-import 'package:fthdaily/Transaction_History/transaction_history.dart';
+import 'package:fthdaily/Icons/Icons.dart';
+import 'package:fthdaily/Transaction_History/Saving_till_now.dart';
+import 'package:fthdaily/Transaction_History/last_month.dart';
+import 'package:fthdaily/Transaction_History/this_month_estimation.dart';
 import 'package:fthdaily/Transaction_History/wallet_balance.dart';
-import 'package:fthdaily/Vegetables/vegetables.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
+class TransactionHistory extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _TransactionHistoryState createState() => _TransactionHistoryState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _TransactionHistoryState extends State<TransactionHistory> {
   int currentTab = 0;
 
   final List<Widget> screens = [
-    Store(),
-    Plans(),
-    WalletPage(),
-    Account(),
-    DeliveryStatus(),
+    LastMonth(),
+    ThisMonthEstimation(),
+    WalletBalance(),
+    SavingTillNow(),
   ];
 
-  Widget currentScreen = Store();
+  Widget currentScreen = WalletBalance();
 
   final PageStorageBucket bucket = PageStorageBucket();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Color(0xFF7653A3)),
       home: Scaffold(
+        appBar: AppBar(
+          leading: Icon(Icons.arrow_back_ios),
+          title: Text('Transaction History'),
+        ),
         body: PageStorage(bucket: bucket, child: currentScreen),
         floatingActionButton: FloatingActionButton(
           child: Icon(
-            MyFlutterApp.truck,
+            Icons.add,
             color: currentTab == 4 ? Color(0xFF7653A3) : Colors.grey,
           ),
           backgroundColor: Colors.white,
           onPressed: () {
             setState(() {
-              currentScreen = DeliveryStatus();
+              currentScreen = WalletPage();
               currentTab = 4;
             });
           },
@@ -105,7 +62,7 @@ class _MyAppState extends State<MyApp> {
                     MaterialButton(
                       onPressed: () {
                         setState(() {
-                          currentScreen = Store();
+                          currentScreen = LastMonth();
                           currentTab = 0;
                         });
                       },
@@ -114,13 +71,13 @@ class _MyAppState extends State<MyApp> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.store,
+                            Icons.money,
                             color: currentTab == 0
                                 ? Color(0xFF7653A3)
                                 : Colors.grey,
                           ),
                           Text(
-                            'Store',
+                            'Last Month',
                             style: TextStyle(
                                 color: currentTab == 0
                                     ? Color(0xFF7653A3)
@@ -132,38 +89,7 @@ class _MyAppState extends State<MyApp> {
                     MaterialButton(
                       onPressed: () {
                         setState(() {
-                          currentScreen = Plans();
-                          currentTab = 1;
-                        });
-                      },
-                      minWidth: 40,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.event_note_outlined,
-                            color: currentTab == 1
-                                ? Color(0xFF7653A3)
-                                : Colors.grey,
-                          ),
-                          Text(
-                            'Plans',
-                            style: TextStyle(
-                                color: currentTab == 1
-                                    ? Color(0xFF7653A3)
-                                    : Colors.grey),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    MaterialButton(
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = WalletPage();
+                          currentScreen = ThisMonthEstimation();
                           currentTab = 2;
                         });
                       },
@@ -172,13 +98,13 @@ class _MyAppState extends State<MyApp> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.account_balance_wallet,
+                            Icons.money,
                             color: currentTab == 2
                                 ? Color(0xFF7653A3)
                                 : Colors.grey,
                           ),
                           Text(
-                            'Wallet',
+                            'Estimate',
                             style: TextStyle(
                                 color: currentTab == 2
                                     ? Color(0xFF7653A3)
@@ -187,10 +113,46 @@ class _MyAppState extends State<MyApp> {
                         ],
                       ),
                     ),
+                  ],
+                ),
+                Row(
+                  children: [
                     MaterialButton(
                       onPressed: () {
                         setState(() {
-                          currentScreen = Account();
+                          currentScreen = WalletBalance();
+                          currentTab = 1;
+                        });
+                      },
+                      minWidth: 40,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.money,
+                                color: currentTab == 1
+                                    ? Color(0xFF7653A3)
+                                    : Colors.grey,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            ' Balance ',
+                            style: TextStyle(
+                                color: currentTab == 1
+                                    ? Color(0xFF7653A3)
+                                    : Colors.grey,
+                                fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ),
+                    MaterialButton(
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = SavingTillNow();
                           currentTab = 3;
                         });
                       },
@@ -199,21 +161,22 @@ class _MyAppState extends State<MyApp> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.supervisor_account_outlined,
+                            Icons.money,
                             color: currentTab == 3
                                 ? Color(0xFF7653A3)
                                 : Colors.grey,
                           ),
                           Text(
-                            'Account',
+                            'Savings',
                             style: TextStyle(
                                 color: currentTab == 3
                                     ? Color(0xFF7653A3)
-                                    : Colors.grey),
+                                    : Colors.grey,
+                                fontSize: 12),
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
