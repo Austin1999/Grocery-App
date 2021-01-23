@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:fthdaily/cart.dart';
 
 class Store extends StatefulWidget {
   @override
@@ -18,12 +20,53 @@ class _StoreState extends State<Store> {
   ];
 
   int _current = 0;
+  int _counter = 0;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: Icon(Icons.location_on),
+          title: FlatButton(
+            onPressed: () {},
+            child: Row(
+              children: [
+                Text(
+                  'Address',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+                Icon(
+                  Icons.arrow_drop_down_outlined,
+                  color: Colors.white,
+                  size: 30,
+                )
+              ],
+            ),
+          ),
+          actions: [
+            Badge(
+              position: BadgePosition.topEnd(top: 0, end: 3),
+              animationDuration: Duration(milliseconds: 300),
+              animationType: BadgeAnimationType.scale,
+              badgeContent: Text(
+                _counter.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+              child: IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Cart()),
+                    );
+                  }),
+            ),
+          ],
+        ),
         body: FutureBuilder(
           future:
               DefaultAssetBundle.of(context).loadString('assets/items.json'),
@@ -69,7 +112,7 @@ class _StoreState extends State<Store> {
                                           child: CircleAvatar(
                                             backgroundColor:
                                                 Colors.lightBlue[50],
-                                            radius: 40.0,
+                                            radius: size.height * 0.045,
                                             backgroundImage: NetworkImage(
                                               'https://images.unsplash.com/photo-1576186726115-4d51596775d1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=401&q=80',
                                             ),
@@ -100,7 +143,7 @@ class _StoreState extends State<Store> {
                                           child: CircleAvatar(
                                             backgroundColor:
                                                 Colors.lightBlue[50],
-                                            radius: 40.0,
+                                            radius: size.height * 0.045,
                                             backgroundImage: NetworkImage(
                                                 'https://images.unsplash.com/photo-1581868164904-77b124b80242?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80'),
                                           ),
@@ -130,7 +173,7 @@ class _StoreState extends State<Store> {
                                           child: CircleAvatar(
                                             backgroundColor:
                                                 Colors.lightBlue[50],
-                                            radius: 40.0,
+                                            radius: size.height * 0.045,
                                             backgroundImage: NetworkImage(
                                                 'https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=660&q=80'),
                                           ),
@@ -160,7 +203,7 @@ class _StoreState extends State<Store> {
                                           child: CircleAvatar(
                                             backgroundColor:
                                                 Colors.lightBlue[50],
-                                            radius: 40.0,
+                                            radius: size.height * 0.045,
                                             backgroundImage: NetworkImage(
                                                 'https://images.unsplash.com/photo-1557844352-761f2565b576?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80'),
                                           ),

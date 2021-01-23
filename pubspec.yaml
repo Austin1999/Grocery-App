@@ -32,6 +32,12 @@ dependencies:
   bubble:
   intl:
   flutter_dialogflow:
+  badges: ^1.1.6
+  multiselect_formfield: ^0.1.5
+  firebase_storage: ^4.0.0
+  http: ^0.12.0+2
+  firebase: ^7.3.2
+  cloud_firestore: ^0.14.0+2
 
 
   # The following adds the Cupertino Icons font to your application.
